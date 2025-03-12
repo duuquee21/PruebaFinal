@@ -5,6 +5,12 @@ public class Proyectil : MonoBehaviour
 {
     void OnCollisionEnter(Collision collision)
     {
+        // Verifica si el objeto con el que ha colisionado tiene el tag "Pared"
+        if (collision.gameObject.CompareTag("Pared"))
+        {
+            // Destruye la pared
+            Destroy(collision.gameObject);
+        }
         // Llama a la corutina para destruir el proyectil después de 3 segundos
         StartCoroutine(DestruirConRetraso());
     }
