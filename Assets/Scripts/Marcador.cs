@@ -7,7 +7,8 @@ public class Marcador : MonoBehaviour
     public TMP_Text puntos;
     private int puntosRecolectados = 0;
     private int puntosact;
-    private int totalpuntos = 6;
+    private int totalpuntos = 3;
+    public TMP_Text marcador;
 
 
     public void SumarPuntos()
@@ -19,7 +20,8 @@ public class Marcador : MonoBehaviour
 
         if (puntosRecolectados >= totalpuntos)
         {
-            puntos.text = "Juego terminado"; // Cambia el texto
+            Destroy(puntos.gameObject);
+            marcador.text = "Juego terminado"; // Cambia el texto
             Debug.Log("Juego terminado"); // Depuración
         }
     }

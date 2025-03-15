@@ -16,7 +16,7 @@ public class Proyectil : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        // Verifica si el objeto colisionado tiene el tag "Pared"
+        
         if (collision.gameObject.CompareTag("Pared") && !puntosSumados)
         {
             puntosSumados = true; // Evita que se sumen puntos múltiples veces
