@@ -3,24 +3,38 @@ using System.Collections;
 
 public class Proyectil : MonoBehaviour
 {
+    private bool puntosSumados = false; // Variable para evitar múltiples sumas de puntos
+    public AudioSource audioSource; // Referencia al AudioSource
+    public AudioClip impactoCañon; // El sonido de impacto de la bala de cañón
+    void Start()
+    {
+        // Asegúrate de que el AudioSource está configurado
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>(); // Si no está asignado, lo obtenemos del objeto
+        }
+    }
     void OnCollisionEnter(Collision collision)
     {
-        // Verifica si el objeto con el que ha colisionado tiene el tag "Pared"
-        if (collision.gameObject.CompareTag("Pared"))
+        // Verifica si el objeto colisionado tiene el tag "Pared"
+        if (collision.gameObject.CompareTag("Pared") && !puntosSumados)
         {
-            // Destruye la pared
-            Destroy(collision.gameObject);
+            puntosSumados = true; // Evita que se sumen puntos múltiples veces
+            FindAnyObjectByType<Marcador>().SumarPuntos();
+            // Reproducir el sonido de impacto
+            if (impactoCañon != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(impactoCañon); // Reproducir el sonido
+            }
+            Destroy(collision.gameObject); // Destruye la pared colisionada
         }
-        // Llama a la corutina para destruir el proyectil después de 3 segundos
+
         StartCoroutine(DestruirConRetraso());
     }
 
     IEnumerator DestruirConRetraso()
     {
-        // Espera 3 segundos antes de destruir el proyectil
         yield return new WaitForSeconds(3f);
-
-        // Destruye el proyectil
-        Destroy(gameObject);
+        Destroy(gameObject); // Destruye la bala después del retraso
     }
 }

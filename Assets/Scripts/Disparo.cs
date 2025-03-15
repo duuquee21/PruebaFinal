@@ -13,7 +13,7 @@ public class Disparo : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             FireBullet();
-        }
+        }            
     }
 
    
@@ -27,9 +27,9 @@ public class Disparo : MonoBehaviour
         if (bulletRigidbody != null)
         {
             bulletRigidbody.AddForce(bullet.transform.up * speed);
-
-
         }
+
+
     }
     
 }
